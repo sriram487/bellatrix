@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js" integrity="sha512-SGWgwwRA8xZgEoKiex3UubkSkV1zSE1BS6O4pXcaxcNtUlQsOmOmhVnDwIvqGRfEmuz83tIGL13cXMZn6upPyg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <meta charset="UTF-8">
+    <title>Hex-Values</title>
+   <style>
+    .alignment{
+
+        background-position: center;
+
+    }
+    .btn{
+        width: 5px;
+    }
+
+   </style>
+</head>
+
+<script type="text/javascript">
+    
+    var intervalID = setInterval(update_values,1000);
+    $SCRIPT_ROOT = {{ request.script_root|tojson|safe }}; 
+
+    function hexToDec(hex) {
+        return parseInt(hex, 16);
+    }
+    
+    function update_values() {
+                  
+        $(document).ready(function(){
+            $.getJSON("/fetch_data",function(data){
+
+            var items =  [];
+            var decimal_items = [];
+
+            $.each(data, function(key, value){
+                items.push(value);
+            });
+
+            $.each(data , function(key, value){
+                decimal_items.push(hexToDec(value));
+            });
+
+            var result = "";
+            var result_2 = "";
+            
+            items.forEach(function (item) {
+                result += "<li><div style='width:55px;height:25px;border:1px solid #000;'>" + item + "</div></li><br>";
+            });
+            decimal_items.forEach(function (item) {
+                result_2 += "<li><div style='width:55px;height:25px;border:1px solid #000;'>" + item + "</div></li><br>";
+            });
+            document.getElementById('arrayMessage').innerHTML = result;
+            document.getElementById('arrayMessage_1').innerHTML = result_2;
+
+            });         
+
+        });
+                    
+    };
+
+        function stopTextColor() {
+        clearInterval(intervalID);
+        }    
+
+        
+</script>
+
+
+    <body onload="update_values();">
+
+        <div class="alignment">
+            <ol type = "A", id = "arrayMessage", style="display: inline-block;"></ol>
+            <ol type = "A", id = "arrayMessage_1", style="display: inline-block;"></ol>
+        </div>
+
+        <button class="btn" onclick="stopTextColor();">Stop</button>
+
+
+    </body>
+</html>
+

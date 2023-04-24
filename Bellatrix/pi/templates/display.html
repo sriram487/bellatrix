@@ -1,0 +1,36 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title> Displaying Hex</title>
+</head>
+<body>
+
+    <div>
+
+        <ol type="A" , style="width:10%; float:left;">
+
+            {% for i in range(31) %}
+
+            <li><div style='width:55px;height:25px;border:1px solid #000;'>{{ lst_ele[0][i] }}</div></li><br>
+
+            {% endfor %}
+           
+        </ol>
+
+       
+
+        <ol type="A", style="width:10%; float:left;">
+
+            {% for i in range(31) %}
+
+            <li><div style='width:55px;height:25px;border:1px solid #000;'>{{ lst_ele[1][i] }}</div></li><br>
+
+            {% endfor %}
+           
+        </ol>
+        
+
+    </div>
+
+    </body>
+</html>
